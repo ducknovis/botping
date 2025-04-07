@@ -20,9 +20,11 @@ async def on_message(message):
     if message.author == bot.user:
         return
     if str(TARGET_USER_ID) in [str(m.id) for m in message.mentions]:
-        response = (f"<@!{message.author.id}> Bro bạn có biết là vịt đang thử thách "
-                   "360 ngày sục liên tục ko lên là stop ping đi nhé đợi lâu lắm ảnh mới rep đó !!!")
-        await message.channel.send(response)
+        response = (f"🔥 **CẢNH BÁO PING!** 🔥\n"
+                   f"<@!{message.author.id}> Bro bạn có biết là vịt đang thử thách "
+                   "360 ngày sục liên tục ko lên là stop ping đi nhé đợi lâu lắm ảnh mới rep đó !!! 😓")
+        file = discord.File("warning_image.png")
+        await message.channel.send(response, file=file)
     await bot.process_commands(message)
 
 async def main():
