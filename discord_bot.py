@@ -1,11 +1,14 @@
 import discord
 from discord.ext import commands
 import asyncio
+from dotenv import load_dotenv
+import os
 
+load_dotenv()
+TOKEN = os.getenv("TOKEN")
 intents = discord.Intents.default()
 intents.message_content = True
 bot = commands.Bot(command_prefix='!', intents=intents)
-
 TARGET_USER_ID = 1051413283145535498
 
 @bot.event
@@ -16,18 +19,15 @@ async def on_ready():
 async def on_message(message):
     if message.author == bot.user:
         return
-
     if str(TARGET_USER_ID) in [str(m.id) for m in message.mentions]:
         response = (f"<@!{message.author.id}> Bro bạn có biết là vịt đang thử thách "
                    "360 ngày sục liên tục ko lên là stop ping đi nhé đợi lâu lắm ảnh mới rep đó !!!")
         await message.channel.send(response)
-
     await bot.process_commands(message)
 
 async def main():
-    token = input("Nhập token bot của bạn: ")
     try:
-        await bot.start(token)
+        await bot.start(TOKEN)
     except discord.LoginFailure:
         print("Token không hợp lệ. Vui lòng kiểm tra lại.")
     except Exception as e:
